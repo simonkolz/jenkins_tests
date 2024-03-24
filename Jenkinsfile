@@ -29,3 +29,10 @@ pipeline {
         // Add more stages as needed
     }
     
+    post {
+        always {
+            // Clean up Docker containers after the pipeline execution
+            cleanWs()
+        }
+    }
+}
