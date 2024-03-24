@@ -1,14 +1,34 @@
 pipeline {
-  agent none
-  stages {
-    stage('Back-end') {
-      agent {
-        docker { image 'maven:3.8.1-adoptopenjdk-11' }
-      }
-      steps {
-        sh 'mvn --version'
-      }
+    agent {
+        docker {
+            // Use the Ubuntu image from Docker Hub
+            image 'ubuntu:latest'
+            // Set up additional options if needed
+            args '-u root' // Example: Run container as root user
+        }
     }
+    
+    stages {
+        stage('Build') {
+            steps {
+                // Update package index
+                sh 'apt update'
+                
+                // Install Maven
+                sh 'apt install -y maven'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                // Check Maven version
+                sh 'mvn -version'
+            }
+        }
+        
+        // Add more stages as needed
+    }
+    
     stage('Front-end') {
       agent {
         docker { image 'node:16-alpine' }
