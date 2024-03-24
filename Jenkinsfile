@@ -29,7 +29,7 @@ pipeline {
         // Add more stages as needed
     }
     
-    stage('Front-end') {
+        stage('Front-end') {
       agent {
         docker { image 'node:16-alpine' }
       }
